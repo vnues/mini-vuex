@@ -21,7 +21,13 @@ let Vue
  * 是以模块的方式获取而不是对象的层级
  */
 
+/**
+ * 将模块里的属性绑定给store
+ * 在绑定属性是增加命名空间即可
+ */
 function installModule(store, rootState, path, module) {
+    let namespace = store._modules.getNamespace(path);
+    console.log('namespace', namespace)
     if (path.length > 0) {
         let parent = path.slice(0, -1).reduce((memo, current) => {
             return memo[current];
@@ -33,22 +39,27 @@ function installModule(store, rootState, path, module) {
         Vue.set(parent, path[path.length - 1], module.state);
     }
     module.forEachMutation((mutation, key) => {
-        store._mutations[key] = (store._mutations[key] || []);
-        store._mutations[key].push((payload) => {
+        store._mutations[namespace + key] = (store._mutations[namespace + key] || []);
+        store._mutations[namespace + key].push((payload) => {
             mutation.call(store, module.state, payload);
         });
     });
     module.forEachAction((action, key) => {
-        store._actions[key] = (store._actions[key] || []);
-        store._actions[key].push(function (payload) {
+        store._actions[namespace + key] = (store._actions[namespace + key] || []);
+        store._actions[namespace + key].push(function (payload) {
             action.call(store, this, payload);
         });
     });
     module.forEachGetter((getter, key) => {
-        store._wrappedGetters[key] = function () {
+        store._wrappedGetters[namespace + key] = function () {
             return getter(module.state);
         }
     });
+    /**
+     * forEach自带终止条件
+     * 如果数组为空是不会进行遍历
+     * 这样递归的终止条件就有了
+     */
     module.forEachChild((child, key) => {
         installModule(store, rootState, path.concat(key), child)
     })
@@ -56,6 +67,8 @@ function installModule(store, rootState, path, module) {
 
 /**
  * 定义状态和计算属性Getters
+ * 获取get是 state和getters
+ * 设置set 是mutaions和actions
  */
 function resetStoreVM(store, state) {
     const computed = {};
@@ -90,7 +103,7 @@ function resetStoreVM(store, state) {
      */
     store._vm = new Vue({
         data: {
-            $state: state,
+            $$state: state,
         },
         computed
     });
@@ -98,7 +111,6 @@ function resetStoreVM(store, state) {
 
 export class Store {
     constructor(options) {
-        console.log("store", this)
         /**
          * 收集模块转化成一棵树
          */
@@ -130,10 +142,10 @@ export class Store {
     }
     /**
      * 当我们获取state
-     * vm.$store.state.xx
+     * vm.$store.state
      */
     get state() {
-        return this._vm._data.$state
+        return this._vm._data.$$state
     }
 }
 

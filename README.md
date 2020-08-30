@@ -1,29 +1,13 @@
-# vue-vuex
+# 实现 mini-vuex
 
-## Project setup
-```
-yarn install
-```
+## Feature
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [ ] vuex 响应式
+- [ ] state
+- [ ] getters
+- [ ] mutations
+- [ ] actions
+- [ ] 模块化机制 modules
+- [ ] 命名空间
+- [ ] 插件机制
+- [ ] 辅助函数

@@ -31,13 +31,11 @@ export default new Vuex.Store({
     },
     modules: {
         a: {
+            namespaced: true,
             state: {
                 age: 188
             },
             getters: {
-                getAge(state) {
-                    return state.age + 10;
-                },
                 getAmoduleAge(state) {
                     return state.age + 100;
                 }
@@ -59,6 +57,26 @@ export default new Vuex.Store({
                     }, 1000);
                 }
             },
+            modules: {
+                c: {
+                    namespaced: true,
+                    state: {
+                        height: 188
+                    },
+                }
+            }
+        },
+        b: {
+            namespaced: true,
+            state: {
+                age: 188
+            },
+            getters: {
+                getBmoduleAge(state) {
+                    return state.age + 100;
+                }
+            },
         }
+
     }
 })

@@ -43,6 +43,17 @@ class ModuleCollection {
             })
         }
     }
+    /**
+     * 获取命名空间
+     */
+    getNamespace(path) {
+        let module = this.root
+        return path.reduce((namespace, key) => {
+            module = module.getChild(key);
+            console.log(module)
+            return namespace + (module.namespaced ? key + '/' : '')
+        }, '');
+    }
 }
 
 
