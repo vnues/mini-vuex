@@ -1,3 +1,10 @@
+
+/**
+ * 原理：
+ * 根据传递过来的数组选项
+ * 循环遍历生成对应的key-value然后返回一个对象
+ */
+
 export const mapState = arrList => {
     let obj = {};
     for (let i = 0; i < arrList.length; i++) {
