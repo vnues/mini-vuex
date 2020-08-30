@@ -6,9 +6,22 @@ import Vue from 'vue'
 import Vuex from '../vuex'
 Vue.use(Vuex)
 
+function persists(store) {
+    console.log('store', store)
+    let local = localStorage.getItem('VUEX:state');
+    if (local) {
+        store.replaceState(JSON.parse(local)); // 会用local替换掉所有的状态
+    }
+    store.subscribe((mutation, state) => {
+        // 这里需要做一个节流  throttle lodash
+        localStorage.setItem('VUEX:state', JSON.stringify(state));
+    });
+}
+
 export default new Vuex.Store({
+    plugins: [persists],
     state: {
-        age: 28
+        age: 0
     },
     getters: {
         getAge(state) {

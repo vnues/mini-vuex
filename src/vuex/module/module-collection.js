@@ -24,9 +24,18 @@ class ModuleCollection {
     constructor(options) {
         this.register([], options)
     }
+    /**
+     * 
+     * @param {*} path path数组的子项就是我们的模块名  每个模块都绑定了一个属于自己的path变量（不是共用的）path是用来记录递归模块的关系
+     * @param {*} rootModule 表示根模块
+     * 收集模块的时候 用path来记录模块之间的父子关系
+     */
     register(path, rootModule) {
         let newModule = new Module(rootModule)
         if (path.length == 0) {
+            /**
+             * this.root表示根模块
+             */
             this.root = newModule;
         } else {
             let parent = path.slice(0, -1).reduce((memo, current) => {

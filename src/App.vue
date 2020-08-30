@@ -8,7 +8,7 @@
 		<button @click="$store.dispatch('changeAge', 3)">过一会增加年龄</button>
 		<!-- commit 对应的mutation -->
 		<button @click="$store.commit('changeAge', 5)">立即增加年龄</button>
-		<button @click="handleClick">点击按钮</button>
+		<!-- <button @click="handleClick">点击按钮</button> -->
 	</div>
 </template>
 
