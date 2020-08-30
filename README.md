@@ -2,12 +2,14 @@
 
 ## Feature
 
-- [ ] vuex 响应式
-- [ ] state
-- [ ] getters
-- [ ] mutations
-- [ ] actions
-- [ ] 模块化机制 modules
-- [ ] 命名空间
-- [ ] 插件机制
-- [ ] 辅助函数
+- [x] vuex 响应式
+- [x] state
+- [x] getters
+- [x] mutations
+- [x] actions
+- [x] 模块化机制 modules
+- [x] 命名空间
+- [x] 插件机制
+- [x] 辅助函数
+
+

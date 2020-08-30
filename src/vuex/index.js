@@ -1,4 +1,5 @@
 import { Store, install } from './store';
+import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from './helpers'
 
 /**
  * vuex就是一个vue插件
@@ -6,5 +7,9 @@ import { Store, install } from './store';
  */
 export default {
     Store,
-    install
+    install,
+    mapState,
+    mapMutations,
+    mapGetters,
+    mapActions,
 }
