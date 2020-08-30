@@ -19,6 +19,10 @@ function persists(store) {
 }
 
 export default new Vuex.Store({
+    /**
+     * 开启严格模式
+     */
+    strict: true,
     plugins: [persists],
     state: {
         age: 0
